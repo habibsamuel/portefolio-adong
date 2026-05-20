@@ -1,677 +1,30 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///C:/Users/DELL/Downloads/Portfolio_Adong.html -->
-<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adong — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./Adong — Portfolio_files/css2" rel="stylesheet">
-<style>
-:root {
-  --bg:       #080808;
-  --bg2:      #0e0e0e;
-  --bg3:      #141414;
-  --border:   #1e1e1e;
-  --border2:  #2a2a2a;
-  --text:     #f0ede8;
-  --text2:    #7a7a7a;
-  --text3:    #3a3a3a;
-  --accent:   #c8f135;
-  --accent2:  #ff6b35;
-  --accent3:  #4da6ff;
-  --gold:     #f5c842;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* ── CURSEUR CUSTOM */
-.cursor {
-  position: fixed;
-  width: 12px; height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
-  opacity: 0.5;
-}
-
-/* ── GRAIN OVERLAY */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9997;
-  opacity: 0.4;
-}
-
-/* ── NAV */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.5rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s, background 0.3s;
-}
-nav.scrolled {
-  background: rgba(8,8,8,0.92);
-  backdrop-filter: blur(20px);
-  border-color: var(--border);
-}
-.nav-logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  text-decoration: none;
-}
-.nav-logo span { color: var(--accent); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a {
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0;
-  width: 0; height: 1px;
-  background: var(--accent);
-  transition: width 0.3s;
-}
-.nav-links a:hover { color: var(--text); }
-.nav-links a:hover::after { width: 100%; }
-.nav-cta {
-  padding: 8px 20px;
-  border: 1px solid var(--border2);
-  border-radius: 2px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  transition: all 0.2s;
-  background: var(--bg3);
-}
-.nav-cta:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-
-/* ── HERO */
-#hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 3rem 5rem;
-  position: relative;
-  overflow: hidden;
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,241,53,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(77,166,255,0.05) 0%, transparent 50%);
-}
-.hero-number {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(180px, 25vw, 320px);
-  font-weight: 800;
-  line-height: 0.85;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--border2);
-  letter-spacing: -0.04em;
-  position: absolute;
-  top: 50%; right: -2rem;
-  transform: translateY(-50%);
-  user-select: none;
-  animation: fadeInRight 1.2s ease both;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border: 1px solid var(--border2);
-  border-radius: 100px;
-  font-size: 11px;
-  color: var(--text2);
-  letter-spacing: 0.08em;
-  margin-bottom: 2rem;
-  animation: fadeInUp 0.8s 0.2s both;
-}
-.hero-badge-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s infinite;
-}
-.hero-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(52px, 8vw, 110px);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-  margin-bottom: 2rem;
-  animation: fadeInUp 0.8s 0.3s both;
-}
-.hero-title .line2 {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--text2);
-}
-.hero-title .accent { color: var(--accent); }
-.hero-sub {
-  max-width: 480px;
-  color: var(--text2);
-  font-size: 13px;
-  line-height: 1.8;
-  margin-bottom: 3rem;
-  animation: fadeInUp 0.8s 0.4s both;
-}
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  animation: fadeInUp 0.8s 0.5s both;
-}
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  background: var(--accent);
-  color: var(--bg);
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.2s;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,241,53,0.25); }
-.btn-ghost {
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.2s;
-}
-.btn-ghost:hover { color: var(--text); }
-.hero-scroll {
-  position: absolute;
-  bottom: 2.5rem; right: 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--text3);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  animation: fadeIn 1s 1s both;
-}
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--border2), transparent);
-  animation: scrollLine 2s ease-in-out infinite;
-}
-
-/* ── STATS BAND */
-.stats-band {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 2rem 3rem;
-  display: flex;
-  gap: 4rem;
-  overflow: hidden;
-  position: relative;
-}
-.stat-item { flex-shrink: 0; }
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text);
-}
-.stat-num span { color: var(--accent); }
-.stat-label { color: var(--text2); font-size: 11px; letter-spacing: 0.08em; margin-top: 2px; }
-.stat-divider {
-  width: 1px;
-  background: var(--border);
-  align-self: stretch;
-  flex-shrink: 0;
-}
-
-/* ── SECTIONS */
-section { padding: 8rem 3rem; }
-.section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-}
-.section-tag::before {
-  content: '';
-  width: 24px; height: 1px;
-  background: var(--accent);
-}
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.0;
-  margin-bottom: 1.5rem;
-}
-.section-title em {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  color: var(--text2);
-}
-
-/* ── ABOUT */
-#about { background: var(--bg2); }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: start;
-  margin-top: 4rem;
-}
-.about-text p {
-  color: var(--text2);
-  font-size: 15px;
-  line-height: 1.9;
-  margin-bottom: 1.5rem;
-}
-.about-text p strong { color: var(--text); font-weight: 400; }
-.about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2rem; }
-.tag {
-  padding: 6px 14px;
-  border: 1px solid var(--border2);
-  border-radius: 2px;
-  font-size: 11px;
-  color: var(--text2);
-  letter-spacing: 0.06em;
-  transition: all 0.2s;
-}
-.tag:hover { border-color: var(--accent); color: var(--accent); }
-.about-right { display: flex; flex-direction: column; gap: 1.5rem; }
-.about-card {
-  padding: 1.5rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--bg3);
-  transition: border-color 0.2s, transform 0.2s;
-}
-.about-card:hover { border-color: var(--border2); transform: translateX(4px); }
-.about-card-icon { font-size: 24px; margin-bottom: 0.75rem; }
-.about-card-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-.about-card-desc { color: var(--text2); font-size: 12px; line-height: 1.7; }
-
-/* ── PROJETS */
-#projects { background: var(--bg); }
-.projects-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 4rem;
-}
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-}
-.project-card {
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--bg2);
-  transition: border-color 0.3s, transform 0.3s;
-  position: relative;
-}
-.project-card:hover { border-color: var(--border2); transform: translateY(-4px); }
-.project-card.large { grid-column: span 7; }
-.project-card.medium { grid-column: span 5; }
-.project-card.small { grid-column: span 4; }
-.project-card.wide { grid-column: span 8; }
-.project-thumb {
-  width: 100%;
-  aspect-ratio: 16/9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-  position: relative;
-  overflow: hidden;
-}
-.project-thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, var(--bg2));
-}
-.p1 { background: linear-gradient(135deg, #0e1a0e 0%, #162416 100%); }
-.p2 { background: linear-gradient(135deg, #0e0e1a 0%, #141424 100%); }
-.p3 { background: linear-gradient(135deg, #1a0e0e 0%, #241616 100%); }
-.p4 { background: linear-gradient(135deg, #0e1618 0%, #141e22 100%); }
-.project-body { padding: 1.5rem; }
-.project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
-.project-tag {
-  padding: 3px 10px;
-  background: var(--bg3);
-  border-radius: 2px;
-  font-size: 10px;
-  color: var(--text2);
-  letter-spacing: 0.06em;
-}
-.project-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
-}
-.project-desc { color: var(--text2); font-size: 12px; line-height: 1.7; margin-bottom: 1.25rem; }
-.project-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--accent);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: gap 0.2s;
-}
-.project-link:hover { gap: 10px; }
-.project-number {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  color: var(--text3);
-  z-index: 1;
-}
-
-/* ── COMPÉTENCES */
-#skills { background: var(--bg2); }
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 4rem;
-}
-.skill-group {
-  padding: 2rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--bg3);
-  transition: border-color 0.2s;
-}
-.skill-group:hover { border-color: var(--border2); }
-.skill-group-icon { font-size: 28px; margin-bottom: 1rem; }
-.skill-group-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-  letter-spacing: -0.01em;
-}
-.skill-item { margin-bottom: 1rem; }
-.skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-.skill-name { font-size: 12px; color: var(--text2); }
-.skill-pct { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
-.skill-bar {
-  height: 2px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.skill-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: linear-gradient(to right, var(--accent), var(--accent3));
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 1s ease;
-}
-.skill-fill.animate { transform: scaleX(1); }
-
-/* ── TIMELINE TÂCHES */
-#tasks { background: var(--bg); }
-.tasks-layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 6rem;
-  margin-top: 4rem;
-}
-.tasks-info { position: sticky; top: 8rem; height: fit-content; }
-.tasks-info p { color: var(--text2); font-size: 13px; line-height: 1.8; margin-bottom: 2rem; }
-.task-total {
-  font-family: 'Syne', sans-serif;
-  font-size: 72px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--border2);
-}
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.timeline-item {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  transition: background 0.2s;
-  cursor: default;
-}
-.timeline-item:last-child { border-bottom: none; }
-.timeline-item:hover { padding-left: 1rem; }
-.timeline-left { min-width: 80px; }
-.timeline-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text3);
-  letter-spacing: 0.08em;
-}
-.timeline-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  border: 1px solid var(--border2);
-  margin-top: 0.75rem;
-  transition: background 0.2s, border-color 0.2s;
-}
-.timeline-item:hover .timeline-dot {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-.timeline-content { flex: 1; }
-.timeline-category {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 0.5rem;
-}
-.timeline-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
-}
-.timeline-desc { color: var(--text2); font-size: 12px; line-height: 1.8; margin-bottom: 1rem; }
-.timeline-badges { display: flex; flex-wrap: wrap; gap: 6px; }
-.timeline-badge {
-  padding: 4px 10px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  font-size: 10px;
-  color: var(--text2);
-  letter-spacing: 0.06em;
-}
-.timeline-result {
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: rgba(200,241,53,0.04);
-  border-left: 2px solid var(--accent);
-  font-size: 12px;
-  color: var(--text2);
-  line-height: 1.6;
-}
-.timeline-result strong { color: var(--accent); }
-
-/* ── CONTACT */
-#contact {
-  background: var(--bg2);
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.contact-inner {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-.contact-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(48px, 7vw, 96px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  margin-bottom: 2rem;
-}
-.contact-title span { color: transparent; -webkit-text-stroke: 1px var(--border2); }
-.contact-desc { color: var(--text2); font-size: 14px; line-height: 1.8; margin-bottom: 3rem; max-width: 480px; margin-inline: auto; margin-bottom: 3rem; }
-.contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.contact-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
-  border: 1px solid var(--border2);
-  border-radius: 2px;
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  transition: all 0.2s;
-}
-.contact-link:hover { border-color: var(--accent); color: var(--accent); }
-.contact-link.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
-.contact-link.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,241,53,0.25); }
-
-/* ── FOOTER */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 2rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--text3);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-}
-
-/* ── ANIMATIONS */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateY(-50%) translateX(40px); }
-  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; } to { opacity: 1; }
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
-}
-@keyframes scrollLine {
-  0%   { transform: scaleY(0); transform-origin: top; }
-  50%  { transform: scaleY(1); transform-origin: top; }
-  51%  { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-</style>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adong — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <!-- Curseur custom -->
-<div class="cursor" id="cursor" style="left: 1128px; top: 164px; width: 12px; height: 12px;"></div>
-<div class="cursor-ring" id="cursorRing" style="left: 980.565px; top: 215.511px; width: 36px; height: 36px;"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<nav id="nav" class="">
-  <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#hero" class="nav-logo">A<span>.</span></a>
+<nav id="nav">
+  <a href="#hero" class="nav-logo">A<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#about">À propos</a></li>
-    <li><a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#projects">Projets</a></li>
-    <li><a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#skills">Skills</a></li>
-    <li><a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks">Tâches</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#tasks">Tâches</a></li>
   </ul>
-  <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#contact" class="nav-cta">Contact →</a>
+  <a href="#contact" class="nav-cta">Contact →</a>
 </nav>
 
 <!-- HERO -->
@@ -695,8 +48,8 @@ footer {
   </p>
 
   <div class="hero-actions">
-    <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#projects" class="btn-primary">Voir mes projets →</a>
-    <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks" class="btn-ghost">↓ Voir toutes mes tâches</a>
+    <a href="#projects" class="btn-primary">Voir mes projets →</a>
+    <a href="#tasks" class="btn-ghost">↓ Voir toutes mes tâches</a>
   </div>
 
   <div class="hero-scroll">
@@ -734,7 +87,7 @@ footer {
   <h2 class="section-title">Je construis,<br><em>j'apprends, je scale.</em></h2>
 
   <div class="about-grid">
-    <div class="about-text reveal visible">
+    <div class="about-text reveal">
       <p>
         Je suis <strong>Adong</strong>, un multipotentiel basé à Yaoundé.
         Ma force ? Combiner des compétences dans des domaines variés pour créer
@@ -760,17 +113,17 @@ footer {
     </div>
 
     <div class="about-right">
-      <div class="about-card reveal reveal-delay-1 visible">
+      <div class="about-card reveal">
         <div class="about-card-icon">📈</div>
         <div class="about-card-title">Finance &amp; Trading</div>
         <div class="about-card-desc">Conception de bots de trading forex automatisés avec stratégies MA + RSI. Analyse des marchés et gestion du risque.</div>
       </div>
-      <div class="about-card reveal reveal-delay-2 visible">
+      <div class="about-card reveal">
         <div class="about-card-icon">🛍️</div>
         <div class="about-card-title">E-commerce &amp; Dropshipping</div>
         <div class="about-card-desc">Création de boutiques Shopify rentables, sélection de produits gagnants, configuration des paiements et stratégie clients.</div>
       </div>
-      <div class="about-card reveal reveal-delay-3 visible">
+      <div class="about-card reveal">
         <div class="about-card-icon">💻</div>
         <div class="about-card-title">Développement Tech</div>
         <div class="about-card-desc">Programmation en C (Code::Blocks) et Python. Algorithmes de trading, interfaces graphiques et outils d'automatisation.</div>
@@ -786,11 +139,11 @@ footer {
       <div class="section-tag">Projets</div>
       <h2 class="section-title">Ce que<br><em>j'ai construit</em></h2>
     </div>
-    <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks" class="btn-ghost">Voir toutes les tâches →</a>
+    <a href="#tasks" class="btn-ghost">Voir toutes les tâches →</a>
   </div>
 
   <div class="projects-grid">
-    <div class="project-card large reveal visible">
+    <div class="project-card large reveal">
       <div class="project-thumb p1">🤖</div>
       <div class="project-number">01</div>
       <div class="project-body">
@@ -801,11 +154,11 @@ footer {
         </div>
         <div class="project-title">Bot Trading Forex EUR/USD</div>
         <div class="project-desc">Bot de trading automatisé avec stratégie suivi de tendance MA20/MA50 + RSI. Backtest complet sur 1 an, gestion automatique SL/TP, export CSV des résultats.</div>
-        <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks" class="project-link">Voir les détails →</a>
+        <a href="#tasks" class="project-link">Voir les détails →</a>
       </div>
     </div>
 
-    <div class="project-card medium reveal reveal-delay-1 visible">
+    <div class="project-card medium reveal">
       <div class="project-thumb p2">🛍️</div>
       <div class="project-number">02</div>
       <div class="project-body">
@@ -816,11 +169,11 @@ footer {
         </div>
         <div class="project-title">Boutique Skincare Dropshipping</div>
         <div class="project-desc">Boutique e-commerce complète : analyse de niche, sélection produits (marge 80%+), configuration paiements PayPal/Wise, intégration CJ Dropshipping.</div>
-        <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks" class="project-link">Voir les détails →</a>
+        <a href="#tasks" class="project-link">Voir les détails →</a>
       </div>
     </div>
 
-    <div class="project-card small reveal visible">
+    <div class="project-card small reveal">
       <div class="project-thumb p3">💻</div>
       <div class="project-number">03</div>
       <div class="project-body">
@@ -830,11 +183,11 @@ footer {
         </div>
         <div class="project-title">ForexBot Desktop C</div>
         <div class="project-desc">Réécriture complète du bot en langage C pur avec menu interactif, graphique ASCII et export CSV. Tourne sur Code::Blocks sans dépendances.</div>
-        <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks" class="project-link">Voir →</a>
+        <a href="#tasks" class="project-link">Voir →</a>
       </div>
     </div>
 
-    <div class="project-card wide reveal reveal-delay-1 visible">
+    <div class="project-card wide reveal">
       <div class="project-thumb p4">🎯</div>
       <div class="project-number">04</div>
       <div class="project-body">
@@ -844,8 +197,8 @@ footer {
           <span class="project-tag">Business</span>
         </div>
         <div class="project-title">Analyse Marché Dropshipping 2026</div>
-        <div class="project-desc">Étude complète des niches rentables — skincare (83% marge), gadgets tech, bijoux, déco maison. Dashboard interactif avec comparatif fournisseurs et stratégie TikTok.</div>
-        <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#tasks" class="project-link">Voir les détails →</a>
+        <div class="project-desc">Étude complète des niches rentables — skincare (83% marge), gadgets tech, bijoux, déco maison. Dashboard interactif avec comparatif fournisseurs.</div>
+        <a href="#tasks" class="project-link">Voir les détails →</a>
       </div>
     </div>
   </div>
@@ -857,66 +210,66 @@ footer {
   <h2 class="section-title">Mon <em>arsenal</em><br>de skills</h2>
 
   <div class="skills-grid">
-    <div class="skill-group reveal visible">
+    <div class="skill-group reveal">
       <div class="skill-group-icon">💻</div>
       <div class="skill-group-title">Développement</div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Langage C</span><span class="skill-pct">75%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.75; transform: scaleX(0.75);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.75);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">70%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.70; transform: scaleX(0.7);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.7);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Algorithmes</span><span class="skill-pct">65%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.65; transform: scaleX(0.65);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.65);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">HTML / CSS</span><span class="skill-pct">60%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.60; transform: scaleX(0.6);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.6);"></div></div>
       </div>
     </div>
 
-    <div class="skill-group reveal reveal-delay-1 visible">
+    <div class="skill-group reveal">
       <div class="skill-group-icon">📈</div>
       <div class="skill-group-title">Finance &amp; Trading</div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Analyse technique</span><span class="skill-pct">70%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.70; transform: scaleX(0.7);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.7);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Stratégie MA/RSI</span><span class="skill-pct">75%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.75; transform: scaleX(0.75);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.75);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Gestion du risque</span><span class="skill-pct">65%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.65; transform: scaleX(0.65);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.65);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Forex (EUR/USD)</span><span class="skill-pct">70%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.70; transform: scaleX(0.7);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.7);"></div></div>
       </div>
     </div>
 
-    <div class="skill-group reveal reveal-delay-2 visible">
+    <div class="skill-group reveal">
       <div class="skill-group-icon">🚀</div>
       <div class="skill-group-title">Business &amp; E-commerce</div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Shopify</span><span class="skill-pct">75%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.75; transform: scaleX(0.75);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.75);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Analyse de niche</span><span class="skill-pct">80%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.80; transform: scaleX(0.8);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.8);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">CJ Dropshipping</span><span class="skill-pct">70%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.70; transform: scaleX(0.7);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.7);"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span class="skill-name">Marketing TikTok</span><span class="skill-pct">65%</span></div>
-        <div class="skill-bar"><div class="skill-fill" style="--w: 0.65; transform: scaleX(0.65);"></div></div>
+        <div class="skill-bar"><div class="skill-fill" style="transform: scaleX(0.65);"></div></div>
       </div>
     </div>
   </div>
@@ -934,8 +287,7 @@ footer {
     </div>
 
     <div class="timeline">
-
-      <div class="timeline-item reveal visible">
+      <div class="timeline-item reveal">
         <div class="timeline-left">
           <div class="timeline-num">001</div>
           <div class="timeline-dot"></div>
@@ -955,7 +307,7 @@ footer {
         </div>
       </div>
 
-      <div class="timeline-item reveal visible">
+      <div class="timeline-item reveal">
         <div class="timeline-left">
           <div class="timeline-num">002</div>
           <div class="timeline-dot"></div>
@@ -963,7 +315,7 @@ footer {
         <div class="timeline-content">
           <div class="timeline-category">E-commerce</div>
           <div class="timeline-title">Top 5 produits Skincare dropshipping</div>
-          <div class="timeline-desc">Analyse détaillée des 5 meilleurs produits skincare pour 2026 : sérum exfoliant, derma roller, sérum cils, masque argile, rouleau facial — avec fiches complètes (coût, prix, marge, fournisseurs, stratégie TikTok).</div>
+          <div class="timeline-desc">Analyse détaillée des 5 meilleurs produits skincare pour 2026 : sérum exfoliant, derma roller, sérum cils, masque argile, rouleau facial — avec fiches complètes.</div>
           <div class="timeline-badges">
             <span class="timeline-badge">CJ Dropshipping</span>
             <span class="timeline-badge">AliExpress</span>
@@ -976,7 +328,7 @@ footer {
         </div>
       </div>
 
-      <div class="timeline-item reveal visible">
+      <div class="timeline-item reveal">
         <div class="timeline-left">
           <div class="timeline-num">003</div>
           <div class="timeline-dot"></div>
@@ -997,132 +349,65 @@ footer {
         </div>
       </div>
 
-      <div class="timeline-item reveal visible">
+      <div class="timeline-item reveal">
         <div class="timeline-left">
           <div class="timeline-num">004</div>
           <div class="timeline-dot"></div>
         </div>
         <div class="timeline-content">
-          <div class="timeline-category">E-commerce / Shopify</div>
-          <div class="timeline-title">Installation CJ Dropshipping sur Shopify</div>
-          <div class="timeline-desc">Guide complet en 7 étapes pour connecter CJ Dropshipping à Shopify et importer les premiers produits skincare : configuration, import, prix, activation et test.</div>
+          <div class="timeline-category">Développement Python</div>
+          <div class="timeline-title">Création du bot trading Forex EUR/USD</div>
+          <div class="timeline-desc">Développement complet en Python d'un bot de trading forex avec stratégie MA20/MA50 + RSI, backtesting sur 1 an, gestion SL/TP, export résultats.</div>
           <div class="timeline-badges">
-            <span class="timeline-badge">CJ Dropshipping</span>
-            <span class="timeline-badge">Import produits</span>
-            <span class="timeline-badge">Shopify App Store</span>
+            <span class="timeline-badge">Python</span>
+            <span class="timeline-badge">Forex</span>
+            <span class="timeline-badge">Trading</span>
           </div>
           <div class="timeline-result">
-            <strong>Résultat :</strong> Boutique prête avec 5 produits skincare actifs — sérum, derma roller, sérum cils, masque argile, gua sha.
+            <strong>Résultat :</strong> Bot fully opérationnel avec backtest 52% de trades gagnants sur 252 jours de marché.
           </div>
         </div>
       </div>
 
-      <div class="timeline-item reveal visible">
+      <div class="timeline-item reveal">
         <div class="timeline-left">
           <div class="timeline-num">005</div>
           <div class="timeline-dot"></div>
         </div>
         <div class="timeline-content">
-          <div class="timeline-category">Finance &amp; Trading</div>
-          <div class="timeline-title">Analyse des bots de trading forex 2026</div>
-          <div class="timeline-desc">Étude comparative des meilleurs bots forex du marché — stratégies (suivi de tendance, scalping, range trading), performances, prix et limites. Identification de la meilleure approche pour un budget de $100–500.</div>
+          <div class="timeline-category">Développement C</div>
+          <div class="timeline-title">Réécriture du bot en langage C</div>
+          <div class="timeline-desc">Réécriture complète du bot forex en C pur, avec menu interactif, affichage ASCII, gestion fichiers CSV, compilable sur Code::Blocks sans dépendances externes.</div>
           <div class="timeline-badges">
-            <span class="timeline-badge">Forex</span>
-            <span class="timeline-badge">EUR/USD</span>
-            <span class="timeline-badge">Forex Fury</span>
-            <span class="timeline-badge">MetaTrader</span>
+            <span class="timeline-badge">C</span>
+            <span class="timeline-badge">Code::Blocks</span>
+            <span class="timeline-badge">Algo</span>
           </div>
           <div class="timeline-result">
-            <strong>Résultat :</strong> Décision de construire un bot custom plutôt qu'acheter — meilleure maîtrise et coût zéro.
+            <strong>Résultat :</strong> Exécutable autonome ~15KB, temps compilation &lt;1s.
           </div>
         </div>
       </div>
 
-      <div class="timeline-item reveal visible">
+      <div class="timeline-item reveal">
         <div class="timeline-left">
           <div class="timeline-num">006</div>
           <div class="timeline-dot"></div>
         </div>
         <div class="timeline-content">
-          <div class="timeline-category">Développement Python</div>
-          <div class="timeline-title">Bot trading forex en Python (version CLI)</div>
-          <div class="timeline-desc">Développement d'un bot de trading forex complet en Python — téléchargement des données EUR/USD, calcul des indicateurs MA20/MA50 + RSI14, génération des signaux, backtest 1 an, visualisation matplotlib.</div>
+          <div class="timeline-category">Shopify Setup</div>
+          <div class="timeline-title">Création boutique Shopify Skincare</div>
+          <div class="timeline-desc">Setup complet d'une boutique Shopify pour la niche skincare : intégration produits CJ Dropshipping, configuration checkout, paiements PayPal/Wise.</div>
           <div class="timeline-badges">
-            <span class="timeline-badge">Python</span>
-            <span class="timeline-badge">pandas</span>
-            <span class="timeline-badge">matplotlib</span>
-            <span class="timeline-badge">yfinance</span>
-            <span class="timeline-badge">Backtest</span>
+            <span class="timeline-badge">Shopify</span>
+            <span class="timeline-badge">CJ Dropshipping</span>
+            <span class="timeline-badge">E-commerce</span>
           </div>
           <div class="timeline-result">
-            <strong>Résultat :</strong> Bot fonctionnel avec profit factor 1.94 sur données simulées — SL automatique 1.5%, TP 3%.
+            <strong>Résultat :</strong> Boutique opérationnelle avec 24 produits, prête pour la promotion TikTok.
           </div>
         </div>
       </div>
-
-      <div class="timeline-item reveal visible">
-        <div class="timeline-left">
-          <div class="timeline-num">007</div>
-          <div class="timeline-dot"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-category">Développement Python</div>
-          <div class="timeline-title">Bot trading Python — version interface graphique</div>
-          <div class="timeline-desc">Réécriture du bot avec interface desktop tkinter : paramètres configurables, 4 graphiques temps réel, journal des trades, export PNG sur le bureau — tout en un seul fichier .py.</div>
-          <div class="timeline-badges">
-            <span class="timeline-badge">Python</span>
-            <span class="timeline-badge">tkinter</span>
-            <span class="timeline-badge">GUI</span>
-            <span class="timeline-badge">Application desktop</span>
-          </div>
-          <div class="timeline-result">
-            <strong>Résultat :</strong> Application complète avec menu interactif, courbe de capital, distribution P&amp;L et liste détaillée des trades.
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item reveal visible">
-        <div class="timeline-left">
-          <div class="timeline-num">008</div>
-          <div class="timeline-dot"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-category">Développement C</div>
-          <div class="timeline-title">Bot trading réécrit en langage C (Code::Blocks)</div>
-          <div class="timeline-desc">Réécriture complète du bot de trading en C pur — calcul manuel des MA, RSI, backtest complet, graphique ASCII dans la console, export CSV. Aucune dépendance externe, tourne directement dans Code::Blocks.</div>
-          <div class="timeline-badges">
-            <span class="timeline-badge">Langage C</span>
-            <span class="timeline-badge">Code::Blocks</span>
-            <span class="timeline-badge">Algorithmes</span>
-            <span class="timeline-badge">CSV export</span>
-          </div>
-          <div class="timeline-result">
-            <strong>Résultat :</strong> Fichier ForexBot_Adong.c compilé et testé — menu interactif 4 options, 100% autonome.
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item reveal visible">
-        <div class="timeline-left">
-          <div class="timeline-num">009</div>
-          <div class="timeline-dot"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-category">Portfolio</div>
-          <div class="timeline-title">Création du portfolio personnel</div>
-          <div class="timeline-desc">Conception et développement d'un portfolio dark mode moderne en HTML/CSS/JS pur — animations, curseur custom, timeline des tâches, section compétences avec barres animées.</div>
-          <div class="timeline-badges">
-            <span class="timeline-badge">HTML</span>
-            <span class="timeline-badge">CSS</span>
-            <span class="timeline-badge">JavaScript</span>
-            <span class="timeline-badge">Dark mode</span>
-          </div>
-          <div class="timeline-result">
-            <strong>Résultat :</strong> Portfolio professionnel moderne — ce site même que tu es en train de voir !
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1130,102 +415,27 @@ footer {
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="section-tag" style="justify-content:center">Contact</div>
-    <h2 class="contact-title">
-      Travaillons<br><span>ensemble</span>
-    </h2>
+    <h2 class="contact-title"><span>Construisons</span> ensemble</h2>
     <p class="contact-desc">
-      Tu as un projet, une idée ou une collaboration en tête ?
-      Je suis disponible pour des missions en e-commerce, développement ou finance.
+      Vous avez un projet, une opportunité ou une question ? 
+      N'hésitez pas à me contacter — j'adore discuter de nouvelles idées et d'aventures entrepreneuriales.
     </p>
     <div class="contact-links">
-      <a href="mailto:adong@email.com" class="contact-link primary">✉️ M'envoyer un email</a>
-      <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#" class="contact-link">💼 LinkedIn</a>
-      <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#" class="contact-link">🐦 Twitter / X</a>
-      <a href="file:///C:/Users/DELL/Downloads/Portfolio_Adong.html#" class="contact-link">📱 WhatsApp</a>
+      <a href="mailto:habibsamuel7@gmail.com" class="contact-link primary">📧 Me contacter</a>
+      <a href="https://linkedin.com/in/adong" class="contact-link">LinkedIn</a>
+      <a href="https://twitter.com/adong" class="contact-link">Twitter/X</a>
+      <a href="https://github.com/habibsamuel" class="contact-link">GitHub</a>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 Adong — Tous droits réservés</span>
-  <span>Yaoundé, Cameroun 🇨🇲</span>
-  <span>Fait avec passion &amp; Claude 🤖</span>
+  <p>&copy; 2026 Adong. Tous droits réservés.</p>
+  <p>Crafted with ❤️ and code.</p>
 </footer>
 
-<script>
-// ── CURSEUR
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
+<script src="script.js"></script>
 
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top  = my + 'px';
-});
-
-function animRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top  = ry + 'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
-
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.width  = '20px';
-    cursor.style.height = '20px';
-    ring.style.width    = '52px';
-    ring.style.height   = '52px';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.width  = '12px';
-    cursor.style.height = '12px';
-    ring.style.width    = '36px';
-    ring.style.height   = '36px';
-  });
-});
-
-// ── NAV SCROLL
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// ── REVEAL ANIMATIONS
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      // Animer les barres de skills
-      e.target.querySelectorAll('.skill-fill').forEach(bar => {
-        bar.style.transform = `scaleX(${bar.style.getPropertyValue('--w') || 0.7})`;
-      });
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.reveal, .skill-group').forEach(el => observer.observe(el));
-
-// Animer les skills au scroll
-const skillObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.skill-fill').forEach(fill => {
-        const w = fill.style.getPropertyValue('--w') ||
-                  fill.parentElement.parentElement.querySelector('.skill-pct')
-                    ?.textContent.replace('%','') / 100 || 0.7;
-        setTimeout(() => { fill.style.transform = `scaleX(${w})`; }, 200);
-      });
-    }
-  });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.skill-group').forEach(g => skillObserver.observe(g));
-</script>
-
-
-</body></html>
+</body>
+</html>
